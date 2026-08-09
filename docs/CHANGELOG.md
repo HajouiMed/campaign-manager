@@ -4,6 +4,32 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Milestone 3 — Google Apps Script Backend
+
+**Added:**
+- `apps-script/Config.gs` — Centralized configuration, sheet names, constants, spreadsheet access, settings reader
+- `apps-script/Auth.gs` — API key validation for frontend, connector secret retrieval, CORS headers, basic rate limiting
+- `apps-script/Utils.gs` — ID generation, timestamps, logging, email validation, HTML sanitization, JSON response helpers, spreadsheet CRUD helpers, safe JSON parse
+- `apps-script/Code.gs` — Central API router with doGet (public tracking + health) and doPost (authenticated actions). Full action dispatch table.
+- `apps-script/WebApp.gs` — Deployment documentation, getWebAppUrl helper, syncSettingsToProperties helper
+- `apps-script/Countries.gs` — getAll, create, update, toggle, migrateOthers with full validation
+- `apps-script/Lists.gs` — getAll with logical list aggregation (country + status counts, grand totals)
+- `apps-script/Contacts.gs` — getAll with filtering/pagination, importCsv with duplicate/validation handling, update, remove
+- `apps-script/Smtps.gs` — getAll (passwords excluded), create, update, remove, pool CRUD
+- `apps-script/Campaigns.gs` — getAll, create, update, start, pause, stop, getStats, duplicate, remove with state/sort validation
+- `apps-script/Queue.gs` — createJobs, getPendingJobs, updateJobStatus
+- `apps-script/Sender.gs` — sendBatch to Node.js connector via UrlFetchApp
+- `apps-script/Tracking.gs` — trackOpen (1x1 pixel), trackClick (redirect), unsubscribe (HTML page), token generation/decoding, event recording, contact status updates
+- `apps-script/Stats.gs` — getDashboard (contact counts, campaign aggregates), getCountrySummary
+- Consistent API response format: `{ success, data, error }`
+
+**Security:**
+- SMTP passwords never returned through API
+- API secrets never exposed to frontend
+- Safe logging (no credential leaks)
+- Input validation on all endpoints
+- HTML sanitization on campaign body
+
 ### Milestone 2 — Google Sheets Schema
 
 **Added:**
@@ -13,34 +39,18 @@ All notable changes to this project are documented in this file.
 - Pre-populated `OTHERS` country in COUNTRIES sheet
 - Auto-resize columns for readability
 
-**Changed:**
-- `docs/PROGRESS.md` — Updated to reflect M2 in progress
-- `docs/INSTALLATION.md` — Added Phase 2 and Phase 3 instructions
-
 ### Milestone 1 — Architecture + Project Structure
 
 **Added:**
-- Complete 4-layer architecture definition (Netlify -> Apps Script -> Sheets -> Node.js)
+- Complete 4-layer architecture definition
 - Project folder structure with all directories
-- Comprehensive documentation:
-  - `README.md` — Project overview and quick links
-  - `docs/ARCHITECTURE.md` — Full architecture, communication flows, security model
-  - `docs/INSTALLATION.md` — Phase-by-phase installation guide
-  - `docs/API.md` — API endpoint reference
-  - `docs/PROGRESS.md` — Live project status tracker
-  - `docs/CHANGELOG.md` — This file
+- Comprehensive documentation
 - Google Sheets schema definition (11 sheets)
 - Contact state machine documentation
 - Country/OTHERS fallback logic specification
 - SMTP rotation and retry logic specification
 - Security requirements checklist
 - Development milestone roadmap (M1-M15)
-
-**Defined:**
-- 15 development milestones with clear deliverables
-- API request/response formats
-- Environment variable requirements
-- File structure for frontend, apps-script, and smtp-connector
 
 ---
 
@@ -49,8 +59,8 @@ All notable changes to this project are documented in this file.
 | Milestone | Status | Target |
 |-----------|--------|--------|
 | M1 — Architecture | Complete | 2026-08-08 |
-| M2 — Google Sheets Schema | In Progress | 2026-08-08 |
-| M3 — Apps Script Backend | Pending | — |
+| M2 — Google Sheets Schema | Complete | 2026-08-08 |
+| M3 — Apps Script Backend | Complete | 2026-08-08 |
 | M4 — Country/List Management | Pending | — |
 | M5 — Contact Import + States | Pending | — |
 | M6 — Netlify Dashboard | Pending | — |

@@ -1,20 +1,18 @@
 # API Reference
 
-> **Status**: In Progress — Milestone 1
-> Endpoints documented as they are implemented.
+&gt; **Status**: Complete — Milestone 3
 
 ## Base URL
-
-```
-https://script.google.com/macros/s/{DEPLOYMENT_ID}/exec
-```
+`https://script.google.com/macros/s/{DEPLOYMENT_ID}/exec`
 
 ## Authentication
-
-All requests must include:
-
-```
-Header: X-API-Key: {API_SECRET}
+All POST requests require:
+```json
+{
+  "apiKey": "your-secret",
+  "action": "endpointName",
+  "payload": { ... }
+}
 ```
 
 ## Request Format
